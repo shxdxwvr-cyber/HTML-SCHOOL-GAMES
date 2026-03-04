@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Math Time</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* ===== BASIC RESET ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial
+        }
+
+        body {
+            background-color: #0f0f0f;
+            color: white;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: #1a1a1a;
+            padding: 15px 30px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* ===== GAME GRID ===== */
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* ===== GAME CARD ===== */
+        .game-card {
+            background: #222;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+            .game-card:hover {
+                transform: scale(1.05);
+                background: #2e2e2e;
+            }
+
+            .game-card img {
+                width: 100%;
+                border-radius: 8px;
+            }
+
+            .game-card h3 {
+                margin-top: 10px;
+                font-size: 16px;
+            }
+
+        /* ===== FULLSCREEN GAME VIEW ===== */
+        #gameOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: none;
+            z-index: 9999;
+        }
+
+        #gameFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ===== EXIT BUTTON ===== */
+        #exitBtn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 10000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>Math Time</header>
+
+    <div class="game-container">
+
+        <!-- GAME BUTTON -->
+        <div class="game-card" onclick="loadGame('https://prageru-server.s3.amazonaws.com/mathematics.html')">
+            <img src="https://lh3.googleusercontent.com/Mxl8996vzcWWRU5RyKdTDA76GEPj9jQpuYc02nPgtwKgdqpWidM5YVqu8DHBd-D1sZ3sP1AOYB-DlNhMEpaLJxQcTQ=s128-rj-sc0x00ffffff">
+            <h3>GN Math</h3>
+        </div>
+
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/Beanss.html')">
+            <img src="https://th.bing.com/th/id/OIP.3phbsUYlaHtGB4Y3GPEniQHaHa?w=176&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3">
+            <h3>Simple Web Browser</h3>
+        </div>
+
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/Skio%20(1)%20(2)%20(1).html')">
+            <img src="https://logowiki.net/wp-content/uploads/imgp/Ska-P-Logo-1-3542.jpg">
+            <h3>Skip.io</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/repo%20new.html')">
+            <img src="https://assets-prd.ignimgs.com/2025/02/27/repo-button-1740672104138.jpg">
+            <h3>Repo</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/Pokemon%20Emerald.html')">
+            <img src="https://archives.bulbagarden.net/media/upload/thumb/6/65/Emerald_EN_boxart.jpg/1200px-Emerald_EN_boxart.jpg">
+            <h3>Pokemon Emerald</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/Happy%20Wheels.html')">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyaeLLSTLHYt9Y6DvuFBvNM8KFLypa8uQiCg&s">
+            <h3>Happy Wheels</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/Soundboard.html')">
+            <img src="https://images.sftcdn.net/images/t_app-icon-m/p/fa6ecb80-a4cc-11e6-a338-00163ec9f5fa/148771327/free-yt-to-mp3-converter-logo.png">
+            <h3>SoundBoard</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/breeze.html')">
+            <img src="https://tse4.mm.bing.net/th/id/OIP._LLHeymCp-ujKHauJuDj_AHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Geometry Dash Breeze</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/subzero.html')">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.W1IlUIrZXwsWgYx1LHXplAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Geometry Dash SubZero</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/Pokemon%20Red.html')">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.g2Wp4gA6vSHklcXS7VyJHgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Pokemon Red</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://algebracentral.github.io/epics.html')">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.0x8FMRSq6JQCkat_cBqAAgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Another GN Math</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://martinmmcyt.github.io/dashmetry/')">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.FjsqaMDZ--6ehCv7gOfJCgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Dashmetry</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://padlet.com/shxdxwvr/discussion-topic-goes-here-2kywtbpv6pit2gk8')">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.ZWxENb6IyOAQ-EzF-SqFiQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Chat With Friends!</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/flappytime.html')">
+            <img src="https://play-lh.googleusercontent.com/hHR8zPHs2mxz4I1_OhJWPV1-t9eIB9UbBaEY5PW575S2BD7mYLWeNz6ptt0-cfAkGg">
+            <h3>Flappy Dunk</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/harvest%20io.html')">
+            <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2a/73/97/2a7397e5-e98e-9596-a323-c68aa5690d38/AppIcon-1x_U007emarketing-0-7-0-85-220-0.png/246x0w.webp">
+            <h3>Harvest.io</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/funny%20shooter%201.html')">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.AOTj2H-YF192rWkFFxOMkAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Funny Shooter</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/gd%20world.html')">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.iJEn4Je-2r5EF17DCQn_ZwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Geometry Dash World</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/gd%20bloodbath.html')">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.SsTzH2MTssSS176abGD4jQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Geometry Dash Blood Bath</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/getting%20over%20it.html')">
+            <img src="https://th.bing.com/th/id/OIP.aUDe_1aDuxea2GjeOV2jOgHaHa?w=181&h=182&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3">
+            <h3>Getting Over It</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/gd%20deadlocked.html')">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.LjOfaujbUtmcmjRLyO09KgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Geometry Dash DeadLocked</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/gd%20meltdown.html')">
+            <img src="https://assets-prd.ignimgs.com/2023/07/07/geomeltdown-1688689829386.jpg">
+            <h3>Geometry Dash Meltdown</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/funny%20shooter%202.html')">
+            <img src="https://tse3.mm.bing.net/th/id/OIP.rLIgnxXv9-l9nANLaZvA5gAAAA?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Funny Shooter 2</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/gd%20jump.html')">
+            <img src="https://th.bing.com/th/id/OIP.xTKZTpv5w8Rn2Ag6eKJCkgAAAA?w=156&h=169&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3">
+            <h3>Geometry Jump</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/gd%20jump%202.html')">
+            <img src="https://th.bing.com/th/id/OIP.lgJlB577B1lp84qttjVwZAAAAA?w=136&h=150&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3">
+            <h3>Geometry Jump 2</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/pixal%20warfare.html')">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.MvuaGERSDKPAONpq6Ho3lAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Pixel Warfare</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/sab%20singerplayer.html')">
+            <img src="https://tse3.mm.bing.net/th/id/OIP.hLG47nrqD2ZhqHGSAZZfrQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Steal The Brainrots</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/steal%20brainrots.html')">
+            <img src="https://th.bing.com/th/id/OIP.-60nr18jdEyDcvbUZpYOuAHaHc?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Steal Brainrots</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/zmas%20dash.html')">
+            <img src="https://tse3.mm.bing.net/th/id/OIP.dPig7OIdcTtMVGLpD8WB2gHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Xmas Dash</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/timeshooter%201.html')">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.qzPKrbbPVl5qaB3emZC3CgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Time Shooter</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://learningbooks.vercel.app/class.html')">
+            <img src="https://styles.redditmedia.com/t5_32rqvl/styles/communityIcon_5xe8t97146l51.jpg?width=256&format=pjpg&s=db44c6167e9473f62dd256ecf56695204da914f8">
+            <h3>T9 OS</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/ultrakill.html')">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.dAEzVqFdrXZoNTcyTzqFqwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>UltraKill</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/gd%20vibes.html')">
+            <img src="https://tse3.mm.bing.net/th/id/OIP.IOcYIfezVioqyBJlgOJjywAAAA?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Geometry Vibes</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/gd%20wave%20dash.html')">
+            <img src="https://geometrydashgame.com/wp-content/uploads/2025/11/Geometry-Dash-Wave-150x150-1.jpeg">
+            <h3>Wave Dash</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/Helios-Offline.html')">
+            <img src="https://cdn.brandfetch.io/idDpCfN4VD/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1726463482807">
+            <h3>Helios Browser</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/time%20shooter%202.html')">
+            <img src="https://img-cdn.heygame.io/gameimages/e5dfa0ef-4cf0-43e4-b1e8-a6844877dc93-Time%20Shooter%202.webp">
+            <h3>Time Shooter 2</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/time%20shooter%203.html')">
+            <img src="https://th.bing.com/th/id/OIP.jGYKmnLbNY9zraKfLAng-gHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Time Shooter 3</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/GN%20Movies%202026%20!!!.html')">
+            <img src="https://static.vecteezy.com/system/resources/previews/016/572/417/large_2x/gn-logo-monogram-with-line-style-design-template-free-vector.jpg">
+            <h3>GN Stream</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/T9flix.html')">
+            <img src="https://images.crunchbase.com/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/rpx30sm0fzjrjr2gjjyz">
+            <h3>T9Flix</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/index%20(5).html')">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.23hHf9gZYDy2etJg8b-AhAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
+            <h3>Minecraft</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://www.onlinegames.io/games/2023/unity2/gta-simulator/index.html')">
+            <img src="https://www.onlinegames.io/media/posts/416/responsive/GTA-Simulator-xs.jpg">
+            <h3>GTA Simulator</h3>
+        </div>
+        <div class="game-card" onclick="loadGame('https://cloud.onlinegames.io/games/2026/unity/steal-brainrot-heist/game.html')">
+            <img src="https://www.onlinegames.io/media/posts/1180/responsive/steal-brainrot-heist-2-xs.webp">
+            <h3>Steal Brainrot Heist</h3>
+        </div><div class="game-card" onclick="loadGame('https://www.onlinegames.io/games/2023/construct/242/skibidi-toilet-io/index.html')">
+            <img src="https://www.onlinegames.io/media/posts/540/responsive/Skibidi-Toilet-xs.jpg">
+            <h3>Skibidi Toilet io</h3>
+        </div>
+    <div class="game-card" onclick="loadGame('https://www.onlinegames.io/games/2021/unity/dont-fall-io/index.html')">
+        <img src="https://www.onlinegames.io/media/posts/182/responsive/Dont-Fall-io-2-xs.jpg">
+        <h3>Dont Fall io</h3>
+    </div>
+    <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/games%20(1)%20(1)%20(1).html')">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.ghhp5NiBEC7riWu0uULiNAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3">
+        <h3>Simple Web Browser (Bookmark)</h3>
+    </div>
+    <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/Securly%20Classroom%20Cheat%20Sheet.pdf')">
+        <img src="https://yt3.ggpht.com/a/AATXAJx1jbodRxbD2hgZZweK0b9PSU8GdYqrw2U5PA=s900-c-k-c0xffffffff-no-rj-mo">
+        <h3>Securly Cheat Sheet</h3>
+    </div>
+    <div class="game-card" onclick="loadGame('https://shxdxwvr-cyber.github.io/HTML-SCHOOL-GAMES/pvznds.html')">
+        <img src="https://i.redd.it/g7pwf1nceso31.jpg">
+        <h3>PvZ DS</h3>
+    </div>
+    <div class="game-card" onclick="loadGame('https://fungi-10-17824279.codehs.me/home.html')">
+        <img src="https://cdn.pixabay.com/photo/2021/11/25/07/32/mushroom-6822830_1280.png">
+        <h3>Fungi</h3>
+    </div>
+    <div class="game-card" onclick="loadGame('')">
+        <img src="https://th.bing.com/th/id/OIP.UWDYUek8xF5AUOKzTRuNOAHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3">
+        <h3>Coming Soon!</h3>
+    </div>
+    </div>
+
+
+    <!-- FULLSCREEN GAME -->
+    <div id="gameOverlay">
+        <button id="exitBtn" onclick="closeGame()">X</button>
+        <iframe id="gameFrame"></iframe>
+    </div>
+
+    <script>
+        function loadGame(url) {
+            document.getElementById("gameFrame").src = url;
+            document.getElementById("gameOverlay").style.display = "block";
+        }
+
+        function closeGame() {
+            document.getElementById("gameOverlay").style.display = "none";
+            document.getElementById("gameFrame").src = "";
+        }
+    </script>
+
+</body>
+<!-- SETTINGS BUTTON -->
+<button id="settingsBtn" style="position:fixed;bottom:20px;left:20px;z-index:9999;">
+    ⚙
+</button>
+
+<!-- SETTINGS PANEL -->
+<div id="settingsPanel" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:10000;
+  align-items:center;
+  justify-content:center;
+">
+
+    <div style="
+    background:#1e1e1e;
+    padding:20px;
+    width:300px;
+    border-radius:12px;
+    color:white;
+  ">
+        <h2>Settings</h2>
+
+        <input id="tabName" placeholder="Tab Name"><br><br>
+        <input id="tabIcon" placeholder="Favicon URL"><br><br>
+
+        <button onclick="applyTabCloak()">Apply Tab Cloak</button><br><br>
+
+        <button onclick="enableTeacher()">PANIC</button><br><br>
+
+        <button onclick="setTheme('dark')">Dark</button>
+        <button onclick="setTheme('light')">Light</button><br><br>
+
+        <select onchange="setFont(this.value)">
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+        </select><br><br>
+
+        <script>
+            function setFont(font) {
+                document.documentElement.style.setProperty(
+                    "font-family",
+                    font + ", sans-serif",
+                    "important"
+                );
+            }
+        </script>
+
+
+        <button onclick="closeSettings()">Close</button>
+    </div>
+</div>
+<script>
+    const settingsBtn = document.getElementById("settingsBtn");
+    const panel = document.getElementById("settingsPanel");
+
+    settingsBtn.onclick = () => {
+        panel.style.display = "flex";
+    };
+
+    function closeSettings() {
+        panel.style.display = "none";
+    }
+
+    /* TAB CLOAK */
+    function applyTabCloak() {
+        const name = document.getElementById("tabName").value;
+        const icon = document.getElementById("tabIcon").value;
+
+        if (name) document.title = name;
+
+        if (icon) {
+            let link = document.querySelector("link[rel='icon']");
+            if (!link) {
+                link = document.createElement("link");
+                link.rel = "icon";
+                document.head.appendChild(link);
+            }
+            link.href = icon;
+        }
+    }
+
+    /* TEACHER MODE (NO PAGE DELETION) */
+    function enableTeacher() {
+        document.body.innerHTML =
+            '<iframe src="https://math.net" style="width:100vw;height:100vh;border:none;"></iframe>';
+    }
+
+    /* THEME */
+    function setTheme(mode) {
+        document.body.style.background =
+            mode === "dark" ? "#121212" : "#ffffff";
+        document.body.style.color =
+            mode === "dark" ? "#eaeaea" : "#111";
+    }
+
+    /* FONT */
+    function setFont(font) {
+        document.body.style.fontFamily = font;
+    }
+</script>
+
+</script>
+
